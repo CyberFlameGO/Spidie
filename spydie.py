@@ -1,10 +1,16 @@
 from bs4 import BeautifulSoup
 import urllib3
 import json
-import sys
-import re
+import bcolors as bc
+import argparse
 
 http = urllib3.PoolManager()
+
+
+def crawl(url):
+    soup = get_url_data(url)
+    values = get_page_data(soup)
+    surf(soup, url)
 
 
 def surf(data, url):
@@ -25,6 +31,7 @@ def surf(data, url):
             soup = get_url_data(link)
             values = get_page_data(soup)
             json_update(values[0], values[1], values[2], link)
+
 
 def get_page_data(data):
     desc = ""
@@ -65,4 +72,8 @@ def json_update(title, description, keywords, url):
         with open("data.json", "w") as file:
             json.dump(data, file, indent=4, separators=(',', ':'))
             file.close()
-# TODO CRAWL
+
+
+def main():
+
+    print(bc.bcolors.BOLD + "Spiedie, Spiedie does whatever a Spiedie wants to do!")
