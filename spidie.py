@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import urllib3
 import json
 import bcolors as bc
-import argparse
+import argparse as ap
 
 http = urllib3.PoolManager()
 
@@ -75,5 +75,14 @@ def json_update(title, description, keywords, url):
 
 
 def main():
-
     print(bc.bcolors.BOLD + "Spiedie, Spiedie does whatever a Spiedie wants to do!")
+    parser = ap.ArgumentParser()
+    parser.add_argument("link", help="Link to the site you want to crawl")
+    args = parser.parse_args()
+    crawl(args.link)
+    print(bc.bcolors.OKBLUE + "Crawled site " + bc.bcolors.BOLD + str(
+        args.link) + bc.bcolors.OKBLUE + " data will be sent to data.json")
+
+
+if __name__ == '__main__':
+    main()
