@@ -3,15 +3,35 @@ import urllib3
 import json
 import bcolors as bc
 import argparse as ap
+import threading
+import time
+
+tLock = threading.Lock()
 
 http = urllib3.PoolManager()
 
 
+def timer(name, delay, repeat):
+    print("Timer: " + name + " has began its process!")
+    tLock.acquire()
+    print(name + " has been locked!")
+    while repeat > 0:
+        time.sleep(delay)
+        print("{0}: {1}".format(name, str(time.ctime(time.ctime()))))
+        repeat -= 1
+    print(name + " has been released!")
+    print("Timer: + " + name + " has completed its process")
+
+
 def crawl(url):
+    thread = threading.Thread(target=timer, args=('Surf Thread', 0, 10))
     soup = get_url_data(url)
     values = get_page_data(soup)
-    surf(soup, url)
 
+    thread.start()
+    while thread.is_alive():
+        surf(soup, url)
+        print(values)
 
 def surf(data, url):
     for link in data.find_all("a"):
