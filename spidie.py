@@ -33,6 +33,7 @@ def crawl(url):
         surf(soup, url)
         print(values)
 
+
 def surf(data, url):
     for link in data.find_all("a"):
         link = link.get("href")

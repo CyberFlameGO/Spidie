@@ -2,9 +2,9 @@
 Pretty simple web cralwer, a more up to date version of my previous one Spyderman 
 
 # Packages needed
-BS4
+#### BS4
 `pip install bs4`
-urllib3
+#### urllib3
 `pip install urllib3`
 
 # Usage
