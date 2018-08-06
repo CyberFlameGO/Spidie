@@ -76,3 +76,36 @@ def convert_file_to_set(file_name):
         for line in file:
             results.add(line.replace('\n', ''))
     return results
+
+
+def set_to_file(links, file_name):
+    with open(file_name, 'w') as file:
+        for i in sorted(links):
+            file.write(i + '\n')
+
+
+class Spidie:
+    name = ''
+    base_url = ''
+    domain_name = ''
+    queue_file = ''
+    crawled_file = ''
+    queue = set()
+    crawled = set()
+
+    def __init__(self, name, base_url, domain_name):
+        Spidie.name = name
+        Spidie.base_url = base_url
+        Spidie.domain_name = domain_name
+        Spidie.queue_file = Spidie.name + '/queue.txt'
+        Spidie.crawled_file = Spidie.crawled_file + '/crawled.txt'
+        # todo load
+        # todo crawl
+
+
+@staticmethod
+def load():
+    create_directory(Spidie.name)
+    create_files(Spidie.name, Spidie.base_url)
+    set_to_file(Spidie.queue_file)
+    set_to_file(Spidie.crawled_file)
